@@ -65,14 +65,9 @@ export default function OnboardingPage() {
       subjects: selected,
       session_year: year,
       zone,
-      subscription_status: "trialing",
-      trial_end: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
     });
 
-    const res = await fetch("/api/stripe/checkout", { method: "POST" });
-    const { url } = await res.json();
-    if (url) window.location.href = url;
-    else router.push("/dashboard");
+    router.push("/dashboard");
   }
 
   return (
