@@ -1,22 +1,21 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
-vi.mock('./index', async (importOriginal) => {
-  const mod = await importOriginal<typeof import('./index')>()
-  return mod
-})
-
-const mockSearch = vi.fn()
-const mockCreate = vi.fn()
+const { mockSearch, mockCreate } = vi.hoisted(() => ({
+  mockSearch: vi.fn(),
+  mockCreate: vi.fn(),
+}))
 
 vi.mock('stripe', () => ({
-  default: vi.fn(() => ({
-    customers: {
-      search: mockSearch,
-      create: mockCreate,
-    },
-    checkout: { sessions: { create: vi.fn() } },
-    billingPortal: { sessions: { create: vi.fn() } },
-  })),
+  default: vi.fn(function () {
+    return {
+      customers: {
+        search: mockSearch,
+        create: mockCreate,
+      },
+      checkout: { sessions: { create: vi.fn() } },
+      billingPortal: { sessions: { create: vi.fn() } },
+    }
+  }),
 }))
 
 describe('getOrCreateStripeCustomer', () => {
