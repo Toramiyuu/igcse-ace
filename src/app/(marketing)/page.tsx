@@ -144,15 +144,15 @@ export default function LandingPage() {
         <h1
           style={{
             fontFamily: "var(--font-syne)",
-            fontSize: "clamp(36px,6vw,72px)",
-            fontWeight: 800,
-            lineHeight: 1.1,
+            fontSize: "clamp(24px,2.6vw,38px)",
+            fontWeight: 700,
+            lineHeight: 1.25,
             marginBottom: 24,
+            maxWidth: 720,
+            margin: "0 auto 24px",
           }}
         >
-          The complete revision
-          <br />
-          platform for{" "}
+          The complete revision platform for{" "}
           <span style={{ color: "var(--accent)" }}>IGCSE students</span>
         </h1>
         <p
