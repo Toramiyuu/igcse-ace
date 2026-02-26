@@ -175,12 +175,13 @@ export default function LandingPage() {
           <h1
             data-fade
             data-delay="80"
-            className="hero-heading font-extrabold leading-[1.1] mb-6 text-center"
+            className="hero-heading font-extrabold leading-[1.1] mb-6"
             style={{
               fontSize: "clamp(40px, 5.5vw, 68px)",
               letterSpacing: "-0.025em",
               fontFamily: "var(--font-inter), sans-serif",
               fontWeight: 800,
+              textAlign: "center",
             }}
           >
             The revision platform
