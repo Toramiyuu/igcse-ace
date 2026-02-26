@@ -96,192 +96,196 @@ const secondaryFeatures: Feature[] = [
   },
 ];
 
+const interFont = "var(--font-inter), sans-serif";
+
 export default function FeatureSections() {
   return (
     <>
       {/* Stats */}
-      <section className="px-6 py-14 max-w-4xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {stats.map((stat, i) => (
-            <div
-              key={stat.label}
-              data-fade
-              data-delay={String(i * 60)}
-              className="text-center rounded-[14px] py-7 px-4"
-              style={{
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-              }}
-            >
+      <section style={{ padding: "80px 24px" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div
+            data-fade
+            className="stats-wrap flex flex-wrap justify-center"
+            style={{ gap: "24px" }}
+          >
+            {stats.map((stat, i) => (
               <div
-                className="text-[34px] font-extrabold mb-1"
-                style={{ fontFamily: "var(--font-syne), sans-serif" }}
+                key={stat.label}
+                data-delay={String(i * 60)}
+                className="stat-card text-center rounded-[14px]"
+                style={{
+                  background: "var(--surface)",
+                  border: "1px solid var(--border)",
+                  padding: "32px 40px",
+                  minWidth: "160px",
+                }}
               >
-                {stat.value}
+                <div
+                  className="stat-num font-bold leading-none mb-2"
+                  style={{
+                    fontFamily: interFont,
+                    fontSize: "48px",
+                    fontWeight: 700,
+                  }}
+                >
+                  {stat.value}
+                </div>
+                <div
+                  style={{
+                    fontSize: "14px",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                    color: "rgba(255,255,255,0.5)",
+                  }}
+                >
+                  {stat.label}
+                </div>
               </div>
-              <div className="text-[13px]" style={{ color: "var(--muted)" }}>
-                {stat.label}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Subjects */}
-      <section id="subjects" className="px-6 py-14 max-w-5xl mx-auto">
-        <div data-fade className="text-center mb-12">
-          <h2
-            className="text-[30px] font-bold mb-3"
-            style={{ fontFamily: "var(--font-syne), sans-serif" }}
+      <section id="subjects" style={{ padding: "80px 24px" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div
+            data-fade
+            className="text-center"
+            style={{ marginBottom: "40px" }}
           >
-            {subjects.length} subjects covered
-          </h2>
-          <p className="text-[15px]" style={{ color: "var(--muted)" }}>
-            All major Cambridge CAIE IGCSE syllabuses, May/June 2026
-          </p>
-        </div>
-        <div
-          data-fade
-          data-delay="100"
-          className="flex flex-wrap gap-2.5 justify-center"
-        >
-          {subjects.map((s) => (
-            <div
-              key={s.name}
-              className="stag flex items-center gap-2.5 rounded-[10px] px-4 py-2.5"
+            <h2
+              className="font-bold"
               style={{
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
+                fontFamily: interFont,
+                fontSize: "30px",
+                fontWeight: 700,
+                marginBottom: "12px",
               }}
             >
-              <div
-                className="w-2 h-2 rounded-full shrink-0"
-                style={{ background: s.color }}
-              />
-              <span className="text-[13px] font-semibold">{s.name}</span>
-              <span
-                className="text-[11px] font-mono"
-                style={{ color: "rgba(232,232,240,0.32)" }}
-              >
-                {s.code}
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Features */}
-      <section id="features" className="px-6 py-14 max-w-5xl mx-auto">
-        <div data-fade className="text-center mb-12">
-          <div
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold mb-4 uppercase tracking-widest"
-            style={{
-              background: "rgba(124,106,240,0.08)",
-              border: "1px solid rgba(124,106,240,0.15)",
-              color: "var(--accent)",
-            }}
-          >
-            Core Tools
+              {subjects.length} subjects covered
+            </h2>
+            <p style={{ fontSize: "15px", color: "var(--muted)" }}>
+              All major Cambridge CAIE IGCSE syllabuses, May/June 2026
+            </p>
           </div>
-          <h2
-            className="text-[30px] font-bold mb-3"
-            style={{ fontFamily: "var(--font-syne), sans-serif" }}
+          <div
+            data-fade
+            data-delay="100"
+            className="subject-tags flex flex-wrap justify-center"
+            style={{ gap: "12px 16px" }}
           >
-            Everything built for IGCSE
-          </h2>
-          <p style={{ color: "var(--muted)" }}>
-            Not a generic study app — purpose-built for CAIE syllabuses
-          </p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {coreFeatures.map((f, i) => {
-            const Icon = f.icon;
-            return (
+            {subjects.map((s) => (
               <div
-                key={f.title}
-                data-fade
-                data-delay={String(i * 70)}
-                className="fcard rounded-[14px] p-6"
+                key={s.name}
+                className="stag flex items-center gap-2.5 rounded-full"
                 style={{
                   background: "var(--surface)",
                   border: "1px solid var(--border)",
+                  padding: "8px 16px",
                 }}
               >
                 <div
-                  className="w-10 h-10 rounded-[10px] flex items-center justify-center mb-4"
-                  style={{ background: "rgba(124,106,240,0.1)" }}
+                  className="w-2 h-2 rounded-full shrink-0"
+                  style={{ background: s.color }}
+                />
+                <span style={{ fontSize: "14px", fontWeight: 600 }}>
+                  {s.name}
+                </span>
+                <span
+                  className="font-mono"
+                  style={{ fontSize: "11px", color: "rgba(232,232,240,0.32)" }}
                 >
-                  <Icon size={20} color="var(--accent)" strokeWidth={1.75} />
-                </div>
-                <div
-                  className="font-bold text-[15px] mb-2"
-                  style={{ fontFamily: "var(--font-syne), sans-serif" }}
-                >
-                  {f.title}
-                </div>
-                <div
-                  className="text-[13px] leading-[1.65]"
-                  style={{ color: "var(--muted)" }}
-                >
-                  {f.desc}
-                </div>
+                  {s.code}
+                </span>
               </div>
-            );
-          })}
-        </div>
-
-        {/* Secondary features */}
-        <div className="mt-14">
-          <div data-fade className="text-center mb-8">
-            <div
-              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-semibold mb-4 uppercase tracking-widest"
-              style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.07)",
-                color: "rgba(232,232,240,0.4)",
-              }}
-            >
-              Extras
-            </div>
-            <div
-              className="text-[20px] font-semibold"
-              style={{
-                fontFamily: "var(--font-syne), sans-serif",
-                color: "rgba(232,232,240,0.65)",
-              }}
-            >
-              Plus everything else you need
-            </div>
+            ))}
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            {secondaryFeatures.map((f, i) => {
+        </div>
+      </section>
+
+      {/* Core Features */}
+      <section id="features" style={{ padding: "80px 24px" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div
+            data-fade
+            className="text-center"
+            style={{ marginBottom: "48px" }}
+          >
+            <div
+              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 uppercase tracking-widest"
+              style={{
+                background: "rgba(124,106,240,0.08)",
+                border: "1px solid rgba(124,106,240,0.15)",
+                color: "var(--accent)",
+                fontSize: "11px",
+                fontWeight: 600,
+                marginBottom: "16px",
+              }}
+            >
+              Core Tools
+            </div>
+            <h2
+              className="font-bold"
+              style={{
+                fontFamily: interFont,
+                fontSize: "30px",
+                fontWeight: 700,
+                marginBottom: "12px",
+              }}
+            >
+              Everything built for IGCSE
+            </h2>
+            <p style={{ color: "var(--muted)" }}>
+              Not a generic study app — purpose-built for CAIE syllabuses
+            </p>
+          </div>
+          <div
+            className="features-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+            style={{ gap: "24px" }}
+          >
+            {coreFeatures.map((f, i) => {
               const Icon = f.icon;
               return (
                 <div
                   key={f.title}
                   data-fade
-                  data-delay={String(i * 60)}
-                  className="fcard rounded-[12px] p-5"
+                  data-delay={String(i * 70)}
+                  className="fcard rounded-[16px]"
                   style={{
-                    background: "rgba(255,255,255,0.02)",
+                    background: "rgba(255,255,255,0.03)",
                     border: "1px solid rgba(255,255,255,0.06)",
+                    padding: "32px",
                   }}
                 >
-                  <Icon
-                    size={18}
-                    color="rgba(232,232,240,0.35)"
-                    strokeWidth={1.5}
-                    className="mb-3"
-                  />
                   <div
-                    className="font-semibold text-[13px] mb-1.5"
-                    style={{ color: "rgba(232,232,240,0.75)" }}
+                    className="flex items-center justify-center rounded-[12px]"
+                    style={{
+                      width: "48px",
+                      height: "48px",
+                      background: "rgba(124,106,240,0.1)",
+                      marginBottom: "16px",
+                    }}
+                  >
+                    <Icon size={22} color="var(--accent)" strokeWidth={1.75} />
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: interFont,
+                      fontSize: "18px",
+                      fontWeight: 600,
+                      marginBottom: "8px",
+                    }}
                   >
                     {f.title}
                   </div>
                   <div
-                    className="text-[12px] leading-[1.6]"
-                    style={{ color: "rgba(232,232,240,0.32)" }}
+                    style={{
+                      fontSize: "14px",
+                      lineHeight: "1.6",
+                      color: "rgba(255,255,255,0.5)",
+                    }}
                   >
                     {f.desc}
                   </div>
@@ -289,92 +293,200 @@ export default function FeatureSections() {
               );
             })}
           </div>
+
+          {/* Secondary features */}
+          <div style={{ marginTop: "48px" }}>
+            <div
+              data-fade
+              className="text-center"
+              style={{ marginBottom: "32px" }}
+            >
+              <div
+                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 uppercase tracking-widest"
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.07)",
+                  color: "rgba(232,232,240,0.4)",
+                  fontSize: "11px",
+                  fontWeight: 600,
+                  marginBottom: "12px",
+                }}
+              >
+                Extras
+              </div>
+              <div
+                style={{
+                  fontFamily: interFont,
+                  fontSize: "20px",
+                  fontWeight: 600,
+                  color: "rgba(232,232,240,0.65)",
+                }}
+              >
+                Plus everything else you need
+              </div>
+            </div>
+            <div
+              className="features-grid-2 grid grid-cols-2 lg:grid-cols-4"
+              style={{ gap: "16px" }}
+            >
+              {secondaryFeatures.map((f, i) => {
+                const Icon = f.icon;
+                return (
+                  <div
+                    key={f.title}
+                    data-fade
+                    data-delay={String(i * 60)}
+                    className="fcard rounded-[12px]"
+                    style={{
+                      background: "rgba(255,255,255,0.02)",
+                      border: "1px solid rgba(255,255,255,0.06)",
+                      padding: "24px",
+                    }}
+                  >
+                    <Icon
+                      size={18}
+                      color="rgba(232,232,240,0.35)"
+                      strokeWidth={1.5}
+                      style={{ marginBottom: "12px" }}
+                    />
+                    <div
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        color: "rgba(232,232,240,0.75)",
+                        marginBottom: "6px",
+                      }}
+                    >
+                      {f.title}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        lineHeight: "1.6",
+                        color: "rgba(232,232,240,0.32)",
+                      }}
+                    >
+                      {f.desc}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Social proof */}
-      <section className="px-6 py-14 max-w-2xl mx-auto text-center">
-        <div data-fade>
-          <div
-            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold mb-7"
-            style={{
-              background: "rgba(82,183,136,0.07)",
-              border: "1px solid rgba(82,183,136,0.18)",
-              color: "#52b788",
-            }}
-          >
-            <Trophy size={13} />
-            Built by IGCSE students, for IGCSE students
+      <section style={{ padding: "80px 24px" }}>
+        <div
+          style={{ maxWidth: "640px", margin: "0 auto", textAlign: "center" }}
+        >
+          <div data-fade>
+            <div
+              className="inline-flex items-center gap-2 rounded-full px-4 py-2"
+              style={{
+                background: "rgba(82,183,136,0.07)",
+                border: "1px solid rgba(82,183,136,0.18)",
+                color: "#52b788",
+                fontSize: "13px",
+                fontWeight: 600,
+                marginBottom: "28px",
+              }}
+            >
+              <Trophy size={13} />
+              Built by IGCSE students, for IGCSE students
+            </div>
+            <p
+              style={{
+                fontFamily: interFont,
+                fontSize: "22px",
+                fontWeight: 600,
+                lineHeight: "1.55",
+                marginBottom: "20px",
+                color: "rgba(232,232,240,0.82)",
+              }}
+            >
+              &ldquo;This is the revision tool I wish existed when I sat my
+              IGCSEs.&rdquo;
+            </p>
+            <p style={{ fontSize: "14px", color: "var(--muted)" }}>
+              Cambridge CAIE · May/June 2026 cohort
+            </p>
           </div>
-          <p
-            className="text-[22px] font-semibold leading-[1.55] mb-5"
-            style={{
-              fontFamily: "var(--font-syne), sans-serif",
-              color: "rgba(232,232,240,0.82)",
-            }}
-          >
-            &ldquo;This is the revision tool I wish existed when I sat my
-            IGCSEs.&rdquo;
-          </p>
-          <p className="text-[14px]" style={{ color: "var(--muted)" }}>
-            Cambridge CAIE · May/June 2026 cohort
-          </p>
         </div>
       </section>
 
       {/* Bottom CTA */}
-      <section className="px-6 pb-10 max-w-5xl mx-auto">
-        <div
-          data-fade
-          className="relative text-center px-6 py-24 rounded-[20px] overflow-hidden"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(124,106,240,0.11) 0%, rgba(96,160,240,0.05) 50%, rgba(124,106,240,0.08) 100%)",
-            border: "1px solid rgba(124,106,240,0.18)",
-          }}
-        >
+      <section style={{ padding: "0 24px 80px" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <div
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[100px] pointer-events-none"
+            data-fade
+            className="relative text-center rounded-[20px] overflow-hidden"
             style={{
+              padding: "120px 48px",
               background:
-                "radial-gradient(ellipse, rgba(124,106,240,0.2) 0%, transparent 70%)",
-              filter: "blur(32px)",
+                "linear-gradient(135deg, rgba(124,106,240,0.11) 0%, rgba(96,160,240,0.05) 50%, rgba(124,106,240,0.08) 100%)",
+              border: "1px solid rgba(124,106,240,0.18)",
             }}
-          />
-          <div className="relative z-10">
-            <h2
-              className="font-extrabold mb-4"
+          >
+            <div
+              className="absolute top-0 left-1/2 -translate-x-1/2 pointer-events-none"
               style={{
-                fontFamily: "var(--font-syne), sans-serif",
-                fontSize: "clamp(28px, 4vw, 46px)",
-                letterSpacing: "-0.02em",
+                width: "500px",
+                height: "100px",
+                background:
+                  "radial-gradient(ellipse, rgba(124,106,240,0.2) 0%, transparent 70%)",
+                filter: "blur(32px)",
               }}
-            >
-              Ready to ace your IGCSEs?
-            </h2>
-            <p
-              className="text-[17px] leading-[1.7] mb-9 mx-auto"
-              style={{ color: "var(--muted)", maxWidth: "400px" }}
-            >
-              Join students using IGCSE Ace to study smarter this revision
-              season. Free for everyone, forever.
-            </p>
-            <Link
-              href="/login"
-              className="ctabtn inline-flex items-center gap-2 font-bold px-9 py-4 rounded-[12px] no-underline text-[17px]"
-              style={{ background: "var(--accent)", color: "white" }}
-            >
-              Sign up free — no credit card needed
-              <ArrowRight size={18} />
-            </Link>
+            />
+            <div className="relative z-10">
+              <h2
+                className="font-extrabold"
+                style={{
+                  fontFamily: interFont,
+                  fontSize: "clamp(28px, 4vw, 46px)",
+                  letterSpacing: "-0.02em",
+                  fontWeight: 800,
+                  marginBottom: "16px",
+                }}
+              >
+                Ready to ace your IGCSEs?
+              </h2>
+              <p
+                style={{
+                  fontSize: "17px",
+                  lineHeight: "1.7",
+                  marginBottom: "36px",
+                  color: "var(--muted)",
+                  maxWidth: "400px",
+                  margin: "0 auto 36px",
+                }}
+              >
+                Join students using IGCSE Ace to study smarter this revision
+                season. Free for everyone, forever.
+              </p>
+              <Link
+                href="/login"
+                className="ctabtn inline-flex items-center gap-2 font-bold rounded-[12px] no-underline"
+                style={{ padding: "16px 32px", fontSize: "17px" }}
+              >
+                Sign up free — no credit card needed
+                <ArrowRight size={18} />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
       <footer
-        className="text-center px-8 py-8 text-[13px]"
-        style={{ color: "var(--muted)", borderTop: "1px solid var(--border)" }}
+        className="text-center"
+        style={{
+          padding: "32px 24px",
+          fontSize: "13px",
+          color: "var(--muted)",
+          borderTop: "1px solid var(--border)",
+        }}
       >
         © 2026 IGCSE Ace · Cambridge CAIE revision platform · Free forever
       </footer>

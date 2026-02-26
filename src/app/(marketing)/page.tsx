@@ -30,10 +30,10 @@ export default function LandingPage() {
       if (!navRef.current) return;
       const scrolled = window.scrollY > 12;
       navRef.current.style.background = scrolled
-        ? "rgba(8,8,16,0.95)"
-        : "transparent";
+        ? "rgba(8,8,13,0.92)"
+        : "rgba(8,8,13,0)";
       navRef.current.style.borderBottomColor = scrolled
-        ? "var(--border)"
+        ? "rgba(255,255,255,0.06)"
         : "transparent";
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -49,6 +49,7 @@ export default function LandingPage() {
         background: "var(--bg)",
         color: "var(--text)",
         minHeight: "100vh",
+        fontFamily: "var(--font-inter), var(--font-dm-sans), sans-serif",
       }}
     >
       <style>{`
@@ -65,27 +66,52 @@ export default function LandingPage() {
         [data-fade][data-delay="180"] { transition-delay: 180ms; }
         [data-fade][data-delay="240"] { transition-delay: 240ms; }
         [data-fade][data-delay="300"] { transition-delay: 300ms; }
-        .fcard { transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
-        .fcard:hover { transform: translateY(-3px); border-color: rgba(124,106,240,0.35) !important; box-shadow: 0 12px 32px rgba(124,106,240,0.1); }
-        .ctabtn { transition: opacity 0.18s ease, transform 0.18s ease; }
-        .ctabtn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+        .fcard { transition: transform 0.2s ease, border-color 0.2s ease; }
+        .fcard:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.12) !important; }
+
+        .ctabtn {
+          background: var(--accent);
+          color: white;
+          transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .ctabtn:hover { background: #6a59d8; transform: translateY(-1px); }
+
         .stag { transition: border-color 0.15s ease, background 0.15s ease; }
-        .stag:hover { border-color: rgba(255,255,255,0.12) !important; background: rgba(255,255,255,0.04) !important; }
+        .stag:hover { border-color: rgba(255,255,255,0.12) !important; background: rgba(255,255,255,0.05) !important; }
+
         .navlink { transition: color 0.15s ease; }
-        .navlink:hover { color: var(--text) !important; }
+        .navlink:hover { color: white !important; }
+
+        @media (max-width: 768px) {
+          .hero-heading { font-size: clamp(32px, 8vw, 56px) !important; }
+          .features-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+          .features-grid-2 { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+          .stats-wrap { gap: 16px !important; }
+          .stat-card { min-width: 130px !important; padding: 20px 24px !important; }
+          .stat-num { font-size: 36px !important; }
+        }
+
+        @media (max-width: 480px) {
+          .hero-heading { font-size: 30px !important; }
+          .stats-wrap { flex-direction: column !important; align-items: stretch !important; }
+          .stat-card { width: 100% !important; min-width: unset !important; }
+          .subject-tags { gap: 8px 10px !important; }
+          .features-grid-2 { grid-template-columns: 1fr !important; }
+        }
       `}</style>
 
       {/* Nav */}
       <nav
         ref={navRef}
-        className="flex items-center justify-between px-8 py-4 sticky top-0 z-50 backdrop-blur-md transition-all duration-300"
+        className="flex items-center justify-between px-6 py-4 sticky top-0 z-50 backdrop-blur-md transition-all duration-300"
         style={{
-          background: "transparent",
+          background: "rgba(8,8,13,0)",
           borderBottom: "1px solid transparent",
         }}
       >
         <div
-          className="font-extrabold text-[18px] tracking-tight"
+          className="font-bold text-[18px] tracking-tight"
           style={{ fontFamily: "var(--font-syne), sans-serif" }}
         >
           IGCSE <span style={{ color: "var(--accent)" }}>Ace</span>
@@ -93,23 +119,22 @@ export default function LandingPage() {
         <div className="hidden md:flex items-center gap-8">
           <a
             href="#features"
-            className="navlink text-[14px] no-underline"
-            style={{ color: "var(--muted)" }}
+            className="navlink text-[14px] font-medium no-underline"
+            style={{ color: "rgba(255,255,255,0.55)" }}
           >
             Features
           </a>
           <a
             href="#subjects"
-            className="navlink text-[14px] no-underline"
-            style={{ color: "var(--muted)" }}
+            className="navlink text-[14px] font-medium no-underline"
+            style={{ color: "rgba(255,255,255,0.55)" }}
           >
             Subjects
           </a>
         </div>
         <Link
           href="/login"
-          className="ctabtn flex items-center gap-1.5 font-semibold px-4 py-2 rounded-[8px] no-underline text-[14px]"
-          style={{ background: "var(--accent)", color: "white" }}
+          className="ctabtn flex items-center gap-1.5 font-semibold px-5 py-2.5 rounded-[8px] no-underline text-[14px]"
         >
           Sign up free <ArrowRight size={14} />
         </Link>
@@ -117,8 +142,9 @@ export default function LandingPage() {
 
       {/* Hero */}
       <section
-        className="relative text-center px-6 pt-28 pb-20 overflow-hidden"
+        className="relative text-center overflow-hidden"
         style={{
+          padding: "120px 24px",
           background:
             "radial-gradient(ellipse 80% 40% at 50% -5%, rgba(124,106,240,0.18) 0%, transparent 70%)",
         }}
@@ -133,7 +159,7 @@ export default function LandingPage() {
               "radial-gradient(ellipse 70% 60% at 50% 0%, black, transparent)",
           }}
         />
-        <div className="relative z-10 max-w-3xl mx-auto">
+        <div className="relative z-10 mx-auto" style={{ maxWidth: "800px" }}>
           <div
             data-fade
             className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-semibold mb-8 tracking-[0.08em] uppercase"
@@ -149,11 +175,12 @@ export default function LandingPage() {
           <h1
             data-fade
             data-delay="80"
-            className="font-extrabold leading-[1.12] mb-6"
+            className="hero-heading font-extrabold leading-[1.1] mb-6 text-center"
             style={{
-              fontFamily: "var(--font-syne), sans-serif",
-              fontSize: "clamp(38px, 5.5vw, 64px)",
+              fontSize: "clamp(40px, 5.5vw, 68px)",
               letterSpacing: "-0.025em",
+              fontFamily: "var(--font-inter), sans-serif",
+              fontWeight: 800,
             }}
           >
             The revision platform
@@ -163,8 +190,8 @@ export default function LandingPage() {
           <p
             data-fade
             data-delay="160"
-            className="text-[18px] leading-[1.75] mb-10 mx-auto"
-            style={{ color: "rgba(232,232,240,0.6)", maxWidth: "460px" }}
+            className="text-[18px] leading-[1.75] mb-12 mx-auto"
+            style={{ color: "rgba(232,232,240,0.6)", maxWidth: "600px" }}
           >
             Flashcards, mock exams, smart timetables, zone-aware exam dates —
             purpose-built for Cambridge CAIE. Free, always.
@@ -173,7 +200,6 @@ export default function LandingPage() {
             <Link
               href="/login"
               className="ctabtn inline-flex items-center gap-2 font-bold px-8 py-4 rounded-[12px] no-underline text-[16px]"
-              style={{ background: "var(--accent)", color: "white" }}
             >
               Get started — it&apos;s free
               <ArrowRight size={16} />
