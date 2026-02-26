@@ -84,7 +84,7 @@ export default function LandingPage() {
         .navlink:hover { color: white !important; }
 
         @media (max-width: 768px) {
-          .hero-heading { font-size: clamp(32px, 8vw, 56px) !important; }
+          .hero-heading { font-size: clamp(28px, 7vw, 44px) !important; }
           .features-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
           .features-grid-2 { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
           .stats-wrap { gap: 16px !important; }
@@ -177,7 +177,7 @@ export default function LandingPage() {
             data-delay="80"
             className="hero-heading font-extrabold leading-[1.1] mb-6"
             style={{
-              fontSize: "clamp(40px, 5.5vw, 68px)",
+              fontSize: "clamp(36px, 4vw, 56px)",
               letterSpacing: "-0.025em",
               fontFamily: "var(--font-inter), sans-serif",
               fontWeight: 800,
