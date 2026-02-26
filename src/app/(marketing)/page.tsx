@@ -48,11 +48,17 @@ const subjects = [
   { name: "Computer Science", code: "0478", color: "#a070f0" },
   { name: "Business Studies", code: "0450", color: "#50d08f" },
   { name: "English First Language", code: "0500", color: "#f0c040" },
+  { name: "English Second Language", code: "0510", color: "#e0b030" },
   { name: "English Literature", code: "0475", color: "#f060a0" },
   { name: "Sciences (Double)", code: "0654", color: "#f06060" },
   { name: "Additional Mathematics", code: "0606", color: "#f09040" },
+  { name: "Mathematics Extended", code: "0580", color: "#60d0a0" },
+  { name: "Mathematics Core", code: "0580", color: "#40b080" },
   { name: "Global Perspectives", code: "0457", color: "#40d0f0" },
-  { name: "Mathematics", code: "0580", color: "#60a0f0" },
+  { name: "Drama", code: "0411", color: "#d070f0" },
+  { name: "Design & Technology", code: "0445", color: "#f0a060" },
+  { name: "Music", code: "0410", color: "#80a0f0" },
+  { name: "Art & Design", code: "0400", color: "#f08080" },
   { name: "Physics", code: "0625", color: "#a070f0" },
   { name: "Chemistry", code: "0620", color: "#50d08f" },
   { name: "Biology", code: "0610", color: "#f0c040" },
@@ -63,269 +69,97 @@ const subjects = [
 
 export default function LandingPage() {
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg)" }}>
+    <div className="min-h-screen bg-[var(--bg)]">
       {/* Nav */}
       <nav
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "20px 40px",
-          borderBottom: "1px solid var(--border)",
-          position: "sticky",
-          top: 0,
-          background: "rgba(8,8,16,0.85)",
-          backdropFilter: "blur(12px)",
-          zIndex: 100,
-        }}
+        className="flex items-center justify-between px-10 py-5 border-b border-[var(--border)] sticky top-0 z-[100] backdrop-blur-md"
+        style={{ background: "var(--nav-bg)" }}
       >
-        <div
-          style={{
-            fontFamily: "var(--font-syne)",
-            fontWeight: 800,
-            fontSize: 20,
-          }}
+        <div className="font-[family-name:var(--font-syne)] font-extrabold text-[20px]">
+          IGCSE <span className="text-[var(--accent)]">Ace</span>
+        </div>
+        <Link
+          href="/login"
+          className="bg-[var(--accent)] text-black font-bold px-5 py-2 rounded-lg no-underline text-[14px]"
         >
-          IGCSE <span style={{ color: "var(--accent)" }}>Ace</span>
-        </div>
-        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          <Link
-            href="/pricing"
-            style={{
-              color: "var(--muted)",
-              textDecoration: "none",
-              fontSize: 14,
-            }}
-          >
-            Pricing
-          </Link>
-          <Link
-            href="/login"
-            style={{
-              background: "var(--accent)",
-              color: "#000",
-              fontWeight: 700,
-              padding: "8px 20px",
-              borderRadius: 8,
-              textDecoration: "none",
-              fontSize: 14,
-            }}
-          >
-            Start Free Trial
-          </Link>
-        </div>
+          Sign Up
+        </Link>
       </nav>
 
       {/* Hero */}
       <section
+        className="text-center px-6 pt-[100px] pb-[80px]"
         style={{
-          textAlign: "center",
-          padding: "100px 24px 80px",
           background:
             "radial-gradient(ellipse at 50% 0%, rgba(240,192,64,0.08) 0%, transparent 60%)",
         }}
       >
-        <div
-          style={{
-            display: "inline-block",
-            background: "rgba(240,192,64,0.1)",
-            border: "1px solid rgba(240,192,64,0.25)",
-            borderRadius: 100,
-            padding: "6px 16px",
-            fontSize: 12,
-            color: "var(--accent)",
-            fontWeight: 600,
-            marginBottom: 28,
-            letterSpacing: "0.05em",
-          }}
-        >
+        <div className="inline-block bg-[rgba(240,192,64,0.1)] border border-[rgba(240,192,64,0.25)] rounded-full px-4 py-1.5 text-[12px] text-[var(--accent)] font-semibold mb-7 tracking-[0.05em]">
           CAMBRIDGE CAIE · MAY/JUNE 2026
         </div>
-        <h1
-          style={{
-            fontFamily: "var(--font-syne)",
-            fontSize: "clamp(24px,2.6vw,38px)",
-            fontWeight: 700,
-            lineHeight: 1.25,
-            marginBottom: 24,
-            maxWidth: 720,
-            margin: "0 auto 24px",
-          }}
-        >
+        <h1 className="font-[family-name:var(--font-syne)] text-[clamp(24px,2.6vw,38px)] font-bold leading-[1.25] max-w-[720px] mx-auto mb-6">
           The complete revision platform for{" "}
-          <span style={{ color: "var(--accent)" }}>IGCSE students</span>
+          <span className="text-[var(--accent)]">IGCSE students</span>
         </h1>
-        <p
-          style={{
-            color: "var(--muted)",
-            fontSize: 18,
-            maxWidth: 540,
-            margin: "0 auto 40px",
-            lineHeight: 1.7,
-          }}
-        >
+        <p className="text-[var(--muted)] text-[18px] max-w-[540px] mx-auto mb-10 leading-[1.7]">
           Flashcards, mock exams, smart timetables, and progress tracking —
           built specifically for Cambridge CAIE. Everything you need to hit A*.
         </p>
-        <div
-          style={{
-            display: "flex",
-            gap: 12,
-            justifyContent: "center",
-            flexWrap: "wrap",
-          }}
+        <Link
+          href="/login"
+          className="bg-[var(--accent)] text-black font-bold px-8 py-[14px] rounded-[10px] no-underline text-[16px] inline-block"
         >
-          <Link
-            href="/login"
-            style={{
-              background: "var(--accent)",
-              color: "#000",
-              fontWeight: 700,
-              padding: "14px 32px",
-              borderRadius: 10,
-              textDecoration: "none",
-              fontSize: 16,
-            }}
-          >
-            Start 7-day free trial
-          </Link>
-          <Link
-            href="/pricing"
-            style={{
-              background: "var(--surface2)",
-              color: "var(--text)",
-              border: "1px solid var(--border)",
-              padding: "14px 32px",
-              borderRadius: 10,
-              textDecoration: "none",
-              fontSize: 16,
-            }}
-          >
-            See pricing
-          </Link>
-        </div>
-        <p style={{ color: "var(--muted)", fontSize: 13, marginTop: 16 }}>
-          No card required to start · Cancel anytime
-        </p>
+          Get started — it&apos;s free
+        </Link>
       </section>
 
       {/* Subjects */}
-      <section
-        style={{ padding: "60px 40px", maxWidth: 1100, margin: "0 auto" }}
-      >
-        <h2
-          style={{
-            textAlign: "center",
-            fontFamily: "var(--font-syne)",
-            fontSize: 28,
-            fontWeight: 700,
-            marginBottom: 8,
-          }}
-        >
-          15 subjects covered
+      <section className="px-10 py-[60px] max-w-[1100px] mx-auto">
+        <h2 className="font-[family-name:var(--font-syne)] text-[28px] font-bold text-center mb-2">
+          {subjects.length} subjects covered
         </h2>
-        <p
-          style={{
-            textAlign: "center",
-            color: "var(--muted)",
-            marginBottom: 36,
-          }}
-        >
+        <p className="text-center text-[var(--muted)] mb-9">
           All major Cambridge CAIE IGCSE syllabuses
         </p>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 10,
-            justifyContent: "center",
-          }}
-        >
+        <div className="flex flex-wrap gap-[10px] justify-center">
           {subjects.map((s) => (
             <div
-              key={s.code}
-              style={{
-                background: "var(--surface2)",
-                border: "1px solid var(--border)",
-                borderRadius: 8,
-                padding: "8px 16px",
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-              }}
+              key={s.name}
+              className="bg-[var(--surface2)] border border-[var(--border)] rounded-lg px-4 py-2 flex items-center gap-[10px]"
             >
               <div
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: "50%",
-                  background: s.color,
-                  flexShrink: 0,
-                }}
+                className="w-2 h-2 rounded-full shrink-0"
+                style={{ background: s.color }}
               />
-              <span style={{ fontSize: 14, fontWeight: 600 }}>{s.name}</span>
-              <span style={{ fontSize: 12, color: "var(--muted)" }}>
-                {s.code}
-              </span>
+              <span className="text-[14px] font-semibold">{s.name}</span>
+              <span className="text-[12px] text-[var(--muted)]">{s.code}</span>
             </div>
           ))}
         </div>
       </section>
 
       {/* Features */}
-      <section
-        style={{ padding: "60px 40px", maxWidth: 1100, margin: "0 auto" }}
-      >
-        <h2
-          style={{
-            textAlign: "center",
-            fontFamily: "var(--font-syne)",
-            fontSize: 28,
-            fontWeight: 700,
-            marginBottom: 8,
-          }}
-        >
+      <section className="px-10 py-[60px] max-w-[1100px] mx-auto">
+        <h2 className="font-[family-name:var(--font-syne)] text-[28px] font-bold text-center mb-2">
           Everything built for IGCSE
         </h2>
-        <p
-          style={{
-            textAlign: "center",
-            color: "var(--muted)",
-            marginBottom: 48,
-          }}
-        >
+        <p className="text-center text-[var(--muted)] mb-12">
           Not a generic study app — purpose-built for CAIE syllabuses
         </p>
         <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill,minmax(240px,1fr))",
-            gap: 20,
-          }}
+          className="grid gap-5"
+          style={{ gridTemplateColumns: "repeat(auto-fill,minmax(240px,1fr))" }}
         >
           {features.map((f) => (
             <div
               key={f.title}
-              style={{
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                borderRadius: 12,
-                padding: "24px",
-              }}
+              className="bg-[var(--surface)] border border-[var(--border)] rounded-[12px] p-6"
             >
-              <div style={{ fontSize: 28, marginBottom: 12 }}>{f.icon}</div>
-              <div
-                style={{
-                  fontWeight: 700,
-                  marginBottom: 8,
-                  fontFamily: "var(--font-syne)",
-                }}
-              >
+              <div className="text-[28px] mb-3">{f.icon}</div>
+              <div className="font-bold mb-2 font-[family-name:var(--font-syne)]">
                 {f.title}
               </div>
-              <div
-                style={{ color: "var(--muted)", fontSize: 14, lineHeight: 1.6 }}
-              >
+              <div className="text-[var(--muted)] text-[14px] leading-[1.6]">
                 {f.desc}
               </div>
             </div>
@@ -334,62 +168,24 @@ export default function LandingPage() {
       </section>
 
       {/* CTA */}
-      <section
-        style={{
-          textAlign: "center",
-          padding: "80px 24px",
-          background:
-            "linear-gradient(135deg, var(--surface) 0%, rgba(240,192,64,0.05) 100%)",
-          margin: "40px 40px",
-          borderRadius: 20,
-          border: "1px solid var(--border)",
-        }}
-      >
-        <h2
-          style={{
-            fontFamily: "var(--font-syne)",
-            fontSize: 36,
-            fontWeight: 800,
-            marginBottom: 16,
-          }}
-        >
+      <section className="text-center px-6 py-[80px] mx-10 mb-10 rounded-[20px] border border-[var(--border)] bg-[linear-gradient(135deg,var(--surface)_0%,rgba(240,192,64,0.05)_100%)]">
+        <h2 className="font-[family-name:var(--font-syne)] text-[36px] font-extrabold mb-4">
           Ready to ace your IGCSEs?
         </h2>
-        <p style={{ color: "var(--muted)", marginBottom: 32, fontSize: 16 }}>
+        <p className="text-[var(--muted)] mb-8 text-[16px]">
           Join students using IGCSE Ace to study smarter this revision season.
         </p>
         <Link
           href="/login"
-          style={{
-            background: "var(--accent)",
-            color: "#000",
-            fontWeight: 700,
-            padding: "16px 40px",
-            borderRadius: 10,
-            textDecoration: "none",
-            fontSize: 18,
-            display: "inline-block",
-          }}
+          className="bg-[var(--accent)] text-black font-bold px-10 py-4 rounded-[10px] no-underline text-[18px] inline-block"
         >
-          Start free — 7 days on us
+          Sign up free
         </Link>
       </section>
 
       {/* Footer */}
-      <footer
-        style={{
-          textAlign: "center",
-          padding: "32px",
-          color: "var(--muted)",
-          fontSize: 13,
-          borderTop: "1px solid var(--border)",
-          marginTop: 40,
-        }}
-      >
-        © 2026 IGCSE Ace · Cambridge CAIE revision platform ·{" "}
-        <Link href="/pricing" style={{ color: "var(--muted)" }}>
-          Pricing
-        </Link>
+      <footer className="text-center px-8 py-8 text-[var(--muted)] text-[13px] border-t border-[var(--border)] mt-10">
+        © 2026 IGCSE Ace · Cambridge CAIE revision platform
       </footer>
     </div>
   );

@@ -26,6 +26,8 @@ export const metadata: Metadata = {
     "Study smarter for IGCSE CAIE. Topic checklists, flashcards, mock exams, timetable, and past paper logs — all in one place.",
 };
 
+const themeScript = `(function(){try{var t=localStorage.getItem('igcse-theme');document.documentElement.setAttribute('data-theme',t==='light'?'light':'dark');}catch(e){}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,6 +35,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body
         className={`${syne.variable} ${dmSans.variable} ${geistMono.variable} antialiased`}
       >

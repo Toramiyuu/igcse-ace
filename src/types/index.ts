@@ -3,17 +3,17 @@ export type SubjectKey =
   | "cs"
   | "business"
   | "engfirst"
+  | "engsl"
   | "englit"
   | "science"
   | "addmath"
+  | "mathex"
+  | "mathcore"
   | "gp"
-  | "maths"
-  | "physics"
-  | "chemistry"
-  | "biology"
-  | "history"
-  | "geography"
-  | "economics";
+  | "drama"
+  | "dt"
+  | "music"
+  | "art";
 
 export interface SubjectMeta {
   name: string;
@@ -57,9 +57,6 @@ export interface UserProfile {
   subjects: SubjectKey[];
   session_year: number;
   zone: number;
-  stripe_customer_id: string | null;
-  subscription_status: "trialing" | "active" | "canceled" | "past_due" | null;
-  trial_end: string | null;
   created_at: string;
 }
 

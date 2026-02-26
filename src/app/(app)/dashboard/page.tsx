@@ -1,249 +1,112 @@
-"use client";
+import { createClient } from "@/lib/supabase/server";
+import type { SubjectKey } from "@/data/subjects";
+import { SUBJECT_META } from "@/data/constants";
+import { getExamsForZone } from "@/lib/zones";
+import SubjectCard from "@/components/dashboard/SubjectCard";
+import StreakHeatmap from "@/components/dashboard/StreakHeatmap";
 
-import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import type { UserProfile } from "@/types";
+export default async function DashboardPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const { data: profile } = await supabase
+    .from("user_profiles")
+    .select("*")
+    .eq("id", user!.id)
+    .single();
 
-const SUBJECT_META: Record<
-  string,
-  { name: string; code: string; color: string }
-> = {
-  ict: { name: "ICT", code: "0417", color: "#60a0f0" },
-  cs: { name: "Computer Science", code: "0478", color: "#a070f0" },
-  business: { name: "Business Studies", code: "0450", color: "#50d08f" },
-  engfirst: { name: "English First Language", code: "0500", color: "#f0c040" },
-  englit: { name: "English Literature", code: "0475", color: "#f060a0" },
-  science: { name: "Sciences (Double)", code: "0654", color: "#f06060" },
-  addmath: { name: "Additional Mathematics", code: "0606", color: "#f09040" },
-  gp: { name: "Global Perspectives", code: "0457", color: "#40d0f0" },
-  maths: { name: "Mathematics", code: "0580", color: "#60a0f0" },
-  physics: { name: "Physics", code: "0625", color: "#a070f0" },
-  chemistry: { name: "Chemistry", code: "0620", color: "#50d08f" },
-  biology: { name: "Biology", code: "0610", color: "#f0c040" },
-  history: { name: "History", code: "0470", color: "#f060a0" },
-  geography: { name: "Geography", code: "0460", color: "#40d0f0" },
-  economics: { name: "Economics", code: "0455", color: "#f09040" },
-};
+  const userSubjects = (profile?.subjects || []) as string[];
+  const zone: number = profile?.zone ?? 1;
 
-export default function DashboardPage() {
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
-  const supabase = createClient();
-  const router = useRouter();
-
-  useEffect(() => {
-    async function load() {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) {
-        router.push("/login");
-        return;
-      }
-      const { data } = await supabase
-        .from("user_profiles")
-        .select("*")
-        .eq("id", user.id)
-        .single();
-      if (!data) {
-        router.push("/onboarding");
-        return;
-      }
-      setProfile(data);
-      setLoading(false);
-    }
-    load();
-  }, []);
-
-  async function signOut() {
-    await supabase.auth.signOut();
-    router.push("/");
-  }
-
-  if (loading)
-    return (
-      <div
-        style={{
-          minHeight: "100vh",
-          background: "var(--bg)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div style={{ color: "var(--muted)", fontFamily: "var(--font-syne)" }}>
-          Loading…
-        </div>
-      </div>
-    );
-
-  const subjects = (profile?.subjects || [])
-    .map((k) => SUBJECT_META[k])
-    .filter(Boolean);
+  const now = Date.now();
+  const upcoming = userSubjects
+    .flatMap((k) =>
+      getExamsForZone(zone, k as SubjectKey).map((e) => ({
+        ...e,
+        subj: k,
+      })),
+    )
+    .filter((e) => e.iso && new Date(e.iso).getTime() > now)
+    .sort((a, b) => new Date(a.iso!).getTime() - new Date(b.iso!).getTime());
+  const next = upcoming[0];
+  const daysLeft = next
+    ? Math.ceil((new Date(next.iso!).getTime() - now) / 86400000)
+    : null;
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg)" }}>
-      {/* Top nav */}
-      <nav
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "16px 32px",
-          borderBottom: "1px solid var(--border)",
-          position: "sticky",
-          top: 0,
-          background: "rgba(8,8,16,0.9)",
-          backdropFilter: "blur(12px)",
-          zIndex: 100,
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--font-syne)",
-            fontWeight: 800,
-            fontSize: 18,
-          }}
-        >
-          IGCSE <span style={{ color: "var(--accent)" }}>Ace</span>
-        </div>
-        <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-          <span style={{ color: "var(--muted)", fontSize: 13 }}>
-            {profile?.session_year} · Zone {profile?.zone}
-          </span>
-          <button
-            onClick={signOut}
-            style={{
-              background: "none",
-              border: "1px solid var(--border)",
-              color: "var(--muted)",
-              padding: "6px 14px",
-              borderRadius: 8,
-              cursor: "pointer",
-              fontSize: 13,
-            }}
-          >
-            Sign out
-          </button>
-        </div>
-      </nav>
-
-      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "48px 32px" }}>
-        {/* Hero */}
-        <div style={{ marginBottom: 48 }}>
-          <h1
-            style={{
-              fontFamily: "var(--font-syne)",
-              fontSize: 36,
-              fontWeight: 800,
-              marginBottom: 8,
-            }}
-          >
-            Your Dashboard
-          </h1>
-          <p style={{ color: "var(--muted)" }}>
-            {subjects.length} subject{subjects.length !== 1 ? "s" : ""} ·
-            May/June {profile?.session_year} · Cambridge CAIE
-          </p>
-        </div>
-
-        {/* Subject grid */}
-        <h2
-          style={{
-            fontFamily: "var(--font-syne)",
-            fontSize: 20,
-            fontWeight: 700,
-            marginBottom: 20,
-          }}
-        >
-          Your Subjects
-        </h2>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-            gap: 16,
-            marginBottom: 48,
-          }}
-        >
-          {subjects.map((s, i) => (
-            <div
-              key={i}
-              style={{
-                background: "var(--surface)",
-                border: `1px solid ${s.color}33`,
-                borderRadius: 14,
-                padding: "24px 20px",
-                cursor: "pointer",
-                transition: "all 0.15s",
-                backgroundImage: `linear-gradient(135deg, var(--surface) 0%, ${s.color}12 100%)`,
-              }}
-              onMouseOver={(e) => (e.currentTarget.style.borderColor = s.color)}
-              onMouseOut={(e) =>
-                (e.currentTarget.style.borderColor = `${s.color}33`)
-              }
-            >
-              <div
-                style={{
-                  width: 10,
-                  height: 10,
-                  borderRadius: "50%",
-                  background: s.color,
-                  marginBottom: 14,
-                }}
-              />
-              <div
-                style={{
-                  fontFamily: "var(--font-syne)",
-                  fontWeight: 700,
-                  fontSize: 16,
-                  marginBottom: 4,
-                }}
-              >
-                {s.name}
-              </div>
-              <div style={{ color: "var(--muted)", fontSize: 13 }}>
-                {s.code}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Coming soon banner */}
-        <div
-          style={{
-            background: "var(--surface)",
-            border: "1px solid var(--border)",
-            borderRadius: 14,
-            padding: "32px",
-            textAlign: "center",
-          }}
-        >
-          <div style={{ fontSize: 32, marginBottom: 12 }}>🚀</div>
-          <h3
-            style={{
-              fontFamily: "var(--font-syne)",
-              fontSize: 20,
-              fontWeight: 700,
-              marginBottom: 8,
-            }}
-          >
-            Full study tools coming next
-          </h3>
-          <p
-            style={{
-              color: "var(--muted)",
-              fontSize: 14,
-              maxWidth: 440,
-              margin: "0 auto",
-            }}
-          >
-            Flashcards, mock exams, timetable, streak tracker, past paper log,
-            and more are being wired up to your account. Check back shortly.
-          </p>
-        </div>
+    <div className="p-10 max-w-[1000px]">
+      {/* Header */}
+      <div className="mb-9">
+        <h1 className="font-[family-name:var(--font-syne)] text-[28px] font-extrabold mb-1.5">
+          Overview
+        </h1>
+        <p className="text-[var(--muted)] text-[14px]">
+          {userSubjects.length} subject{userSubjects.length !== 1 ? "s" : ""} ·
+          May/June {profile?.session_year} · Cambridge CAIE
+        </p>
       </div>
+
+      {/* Countdown stat */}
+      {next && daysLeft !== null && (
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-[14px] px-6 py-5 mb-8 flex items-center gap-5">
+          <div className="font-[family-name:var(--font-syne)] text-[42px] font-extrabold text-[var(--accent)] leading-none">
+            {daysLeft}
+          </div>
+          <div>
+            <div className="font-semibold text-[14px] mb-0.5">
+              days until{" "}
+              {SUBJECT_META[next.subj as SubjectKey]?.name ?? next.subj} —{" "}
+              {next.paper}
+            </div>
+            <div className="text-[var(--muted)] text-[13px]">
+              {next.date} · {next.session}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Streak heatmap */}
+      <h2 className="font-[family-name:var(--font-syne)] font-bold text-[var(--muted)] uppercase tracking-[0.06em] text-[11px] mb-3">
+        Study Streak
+      </h2>
+      <StreakHeatmap />
+
+      {/* Subject cards grid */}
+      <h2 className="font-[family-name:var(--font-syne)] font-bold text-[var(--muted)] uppercase tracking-[0.06em] text-[11px] mb-4">
+        Your Subjects
+      </h2>
+      {userSubjects.length === 0 ? (
+        <div className="bg-[var(--surface)] border border-dashed border-[var(--border)] rounded-[14px] px-8 py-10 text-center">
+          <div className="text-[32px] mb-3">📚</div>
+          <div className="font-[family-name:var(--font-syne)] font-bold text-[16px] mb-2">
+            No subjects selected
+          </div>
+          <p className="text-[var(--muted)] text-[13px] mb-5">
+            Choose your subjects to unlock your timetable, flashcards, and exam
+            tracker.
+          </p>
+          <a
+            href="/onboarding"
+            className="bg-[var(--accent)] text-black font-bold px-6 py-2.5 rounded-lg text-[14px] no-underline inline-block"
+          >
+            Set up subjects →
+          </a>
+        </div>
+      ) : (
+        <div
+          className="grid gap-[14px]"
+          style={{
+            gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+          }}
+        >
+          {userSubjects.map((key) => {
+            const meta = SUBJECT_META[key as SubjectKey];
+            if (!meta) return null;
+            return <SubjectCard key={key} subjectKey={key} meta={meta} />;
+          })}
+        </div>
+      )}
     </div>
   );
 }
