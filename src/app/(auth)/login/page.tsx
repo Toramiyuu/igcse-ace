@@ -56,7 +56,7 @@ export default function LoginPage() {
     }
     setLoading(true);
     if (mode === "signup") {
-      const { error: err } = await supabase.auth.signUp({
+      const { data, error: err } = await supabase.auth.signUp({
         email,
         password,
         options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
@@ -64,6 +64,10 @@ export default function LoginPage() {
       if (err) {
         setError(err.message);
         setLoading(false);
+        return;
+      }
+      if (data.session) {
+        window.location.href = "/dashboard";
         return;
       }
       setScreen("check_email");
