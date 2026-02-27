@@ -40,21 +40,59 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] py-[60px] px-6">
-      <div className="max-w-[640px] mx-auto">
-        <div className="font-[family-name:var(--font-syne)] font-extrabold text-[22px] mb-10 text-[var(--accent)]">
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "var(--bg)",
+        padding: "60px 24px 80px",
+      }}
+    >
+      <div style={{ maxWidth: "680px", margin: "0 auto" }}>
+        {/* Logo */}
+        <div
+          style={{
+            fontFamily: "var(--font-syne), sans-serif",
+            fontWeight: 800,
+            fontSize: "22px",
+            marginBottom: "40px",
+            color: "var(--accent)",
+            letterSpacing: "-0.02em",
+          }}
+        >
           IGCSE Ace
         </div>
-        <h1 className="font-[family-name:var(--font-syne)] text-[32px] font-extrabold mb-2">
+
+        <h1
+          style={{
+            fontFamily: "var(--font-syne), sans-serif",
+            fontSize: "32px",
+            fontWeight: 800,
+            marginBottom: "8px",
+            color: "var(--text)",
+            letterSpacing: "-0.02em",
+          }}
+        >
           Choose your subjects
         </h1>
-        <p className="text-[var(--muted)] mb-8">
+        <p
+          style={{
+            color: "var(--muted)",
+            fontSize: "15px",
+            marginBottom: "32px",
+            lineHeight: 1.5,
+          }}
+        >
           Select the subjects you&apos;re sitting. You can change these later.
         </p>
 
+        {/* Subject grid */}
         <div
-          className="grid gap-[10px] mb-9"
-          style={{ gridTemplateColumns: "repeat(auto-fill,minmax(190px,1fr))" }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(190px, 1fr))",
+            gap: "10px",
+            marginBottom: "36px",
+          }}
         >
           {SUBJECT_KEYS.map((key) => {
             const s = SUBJECT_META[key];
@@ -63,28 +101,54 @@ export default function OnboardingPage() {
               <button
                 key={key}
                 onClick={() => toggle(key)}
-                className="rounded-[10px] px-4 py-[14px] cursor-pointer flex items-center gap-[10px] text-left transition-all duration-150"
                 style={{
+                  borderRadius: "10px",
+                  padding: "14px 16px",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  textAlign: "left",
                   background: active ? `${s.color}18` : "var(--surface)",
                   border: `1px solid ${active ? s.color : "var(--border)"}`,
+                  transition: "border-color 0.15s ease, background 0.15s ease",
+                  width: "100%",
                 }}
               >
                 <div
-                  className="w-2 h-2 rounded-full shrink-0"
-                  style={{ background: s.color }}
+                  style={{
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    flexShrink: 0,
+                    background: s.color,
+                  }}
                 />
-                <div className="flex-1 min-w-0">
-                  <div className="text-[var(--text)] text-[13px] font-semibold truncate">
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div
+                    style={{
+                      color: "var(--text)",
+                      fontSize: "13px",
+                      fontWeight: 600,
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
                     {s.name}
                   </div>
-                  <div className="text-[var(--muted)] text-[11px]">
+                  <div style={{ color: "var(--muted)", fontSize: "11px" }}>
                     {s.code}
                   </div>
                 </div>
                 {active && (
                   <span
-                    className="ml-auto text-[14px]"
-                    style={{ color: s.color }}
+                    style={{
+                      marginLeft: "auto",
+                      fontSize: "14px",
+                      color: s.color,
+                      flexShrink: 0,
+                    }}
                   >
                     ✓
                   </span>
@@ -94,25 +158,59 @@ export default function OnboardingPage() {
           })}
         </div>
 
-        <div className="flex gap-4 mb-8 flex-wrap">
+        {/* Year + Zone row */}
+        <div
+          style={{
+            display: "flex",
+            gap: "24px",
+            marginBottom: "32px",
+            flexWrap: "wrap",
+          }}
+        >
+          {/* Session year */}
           <div>
-            <label className="text-[13px] text-[var(--muted)] block mb-1.5">
+            <label
+              style={{
+                fontSize: "13px",
+                color: "var(--muted)",
+                display: "block",
+                marginBottom: "8px",
+              }}
+            >
               Session year
             </label>
             <select
               value={year}
               onChange={(e) => setYear(+e.target.value)}
-              className="bg-[var(--surface)] border border-[var(--border)] text-[var(--text)] px-3 py-2 rounded-lg text-[14px]"
+              style={{
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
+                color: "var(--text)",
+                padding: "9px 14px",
+                borderRadius: "8px",
+                fontSize: "14px",
+                cursor: "pointer",
+                outline: "none",
+              }}
             >
               <option value={2026}>May/June 2026</option>
               <option value={2027}>May/June 2027</option>
             </select>
           </div>
-          <div className="flex-1">
-            <label className="text-[13px] text-[var(--muted)] block mb-1.5">
+
+          {/* Cambridge zone */}
+          <div style={{ flex: 1, minWidth: "280px" }}>
+            <label
+              style={{
+                fontSize: "13px",
+                color: "var(--muted)",
+                display: "block",
+                marginBottom: "8px",
+              }}
+            >
               Cambridge zone
             </label>
-            <div className="flex flex-wrap gap-2">
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
               {(["Z1", "Z2", "Z3", "Z4", "Z5"] as ZoneKey[]).map((zk, i) => {
                 const zNum = i + 1;
                 const info = ZONE_INFO[zk];
@@ -122,21 +220,47 @@ export default function OnboardingPage() {
                     key={zk}
                     type="button"
                     onClick={() => setZone(zNum)}
-                    className="rounded-[10px] px-3 py-2.5 text-left transition-all duration-150 border"
                     style={{
+                      borderRadius: "10px",
+                      padding: "10px 14px",
+                      textAlign: "left",
+                      border: `1px solid ${active ? "var(--accent)" : "var(--border)"}`,
                       background: active
                         ? "color-mix(in srgb, var(--accent) 12%, transparent)"
                         : "var(--surface)",
-                      borderColor: active ? "var(--accent)" : "var(--border)",
+                      cursor: "pointer",
+                      transition:
+                        "border-color 0.15s ease, background 0.15s ease",
                     }}
                   >
-                    <div className="text-[12px] font-bold text-[var(--accent)]">
+                    <div
+                      style={{
+                        fontSize: "12px",
+                        fontWeight: 700,
+                        color: "var(--accent)",
+                        marginBottom: "2px",
+                      }}
+                    >
                       {info.label}
                     </div>
-                    <div className="text-[11px] text-[var(--text)] font-semibold leading-tight">
+                    <div
+                      style={{
+                        fontSize: "11px",
+                        color: "var(--text)",
+                        fontWeight: 600,
+                        lineHeight: 1.3,
+                      }}
+                    >
                       {info.region}
                     </div>
-                    <div className="text-[10px] text-[var(--muted)] leading-tight mt-0.5">
+                    <div
+                      style={{
+                        fontSize: "10px",
+                        color: "var(--muted)",
+                        lineHeight: 1.4,
+                        marginTop: "2px",
+                      }}
+                    >
                       {info.countries}
                     </div>
                   </button>
@@ -146,15 +270,22 @@ export default function OnboardingPage() {
           </div>
         </div>
 
+        {/* CTA */}
         <button
           onClick={save}
           disabled={selected.length === 0 || saving}
-          className="w-full font-bold py-[14px] px-8 rounded-[10px] border-0 text-[16px] transition-colors duration-150"
           style={{
+            width: "100%",
+            fontWeight: 700,
+            padding: "15px 32px",
+            borderRadius: "10px",
+            border: "none",
+            fontSize: "16px",
             background:
               selected.length > 0 ? "var(--accent)" : "var(--surface2)",
             color: selected.length > 0 ? "#000" : "var(--muted)",
             cursor: selected.length > 0 ? "pointer" : "not-allowed",
+            transition: "background 0.15s ease",
           }}
         >
           {saving

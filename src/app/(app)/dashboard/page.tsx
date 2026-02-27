@@ -35,22 +35,22 @@ export default async function DashboardPage() {
     : null;
 
   return (
-    <div style={{ padding: "40px 44px", maxWidth: "960px" }}>
+    <div style={{ padding: "48px 52px", maxWidth: "1040px" }}>
       {/* Header */}
-      <div style={{ marginBottom: "36px" }}>
+      <div style={{ marginBottom: "40px" }}>
         <h1
           style={{
             fontFamily: "var(--font-syne), sans-serif",
-            fontSize: "28px",
+            fontSize: "30px",
             fontWeight: 800,
-            marginBottom: "6px",
+            marginBottom: "8px",
             color: "var(--text)",
             letterSpacing: "-0.02em",
           }}
         >
           Overview
         </h1>
-        <p style={{ color: "var(--muted)", fontSize: "14px" }}>
+        <p style={{ color: "var(--muted)", fontSize: "15px" }}>
           {userSubjects.length} subject{userSubjects.length !== 1 ? "s" : ""} ·
           May/June {profile?.session_year} · Cambridge CAIE
         </p>
@@ -62,18 +62,18 @@ export default async function DashboardPage() {
           style={{
             background: "var(--surface)",
             border: "1px solid var(--border)",
-            borderRadius: "14px",
-            padding: "20px 24px",
-            marginBottom: "32px",
+            borderRadius: "16px",
+            padding: "24px 32px",
+            marginBottom: "40px",
             display: "flex",
             alignItems: "center",
-            gap: "20px",
+            gap: "28px",
           }}
         >
           <div
             style={{
               fontFamily: "var(--font-syne), sans-serif",
-              fontSize: "44px",
+              fontSize: "52px",
               fontWeight: 800,
               color: "var(--accent)",
               lineHeight: 1,
@@ -86,8 +86,8 @@ export default async function DashboardPage() {
             <div
               style={{
                 fontWeight: 600,
-                fontSize: "14px",
-                marginBottom: "4px",
+                fontSize: "16px",
+                marginBottom: "6px",
                 color: "var(--text)",
               }}
             >
@@ -95,7 +95,7 @@ export default async function DashboardPage() {
               {SUBJECT_META[next.subj as SubjectKey]?.name ?? next.subj} —{" "}
               {next.paper}
             </div>
-            <div style={{ color: "var(--muted)", fontSize: "13px" }}>
+            <div style={{ color: "var(--muted)", fontSize: "14px" }}>
               {next.date} · {next.session}
             </div>
           </div>
@@ -106,11 +106,11 @@ export default async function DashboardPage() {
       <div
         style={{
           fontSize: "11px",
-          fontWeight: 600,
-          letterSpacing: "0.07em",
+          fontWeight: 700,
+          letterSpacing: "0.08em",
           textTransform: "uppercase",
           color: "var(--muted)",
-          marginBottom: "12px",
+          marginBottom: "16px",
           fontFamily: "var(--font-syne), sans-serif",
         }}
       >
@@ -122,12 +122,12 @@ export default async function DashboardPage() {
       <div
         style={{
           fontSize: "11px",
-          fontWeight: 600,
-          letterSpacing: "0.07em",
+          fontWeight: 700,
+          letterSpacing: "0.08em",
           textTransform: "uppercase",
           color: "var(--muted)",
-          marginBottom: "16px",
-          marginTop: "32px",
+          marginBottom: "18px",
+          marginTop: "40px",
           fontFamily: "var(--font-syne), sans-serif",
         }}
       >
