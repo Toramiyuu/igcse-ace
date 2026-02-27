@@ -16,6 +16,18 @@ function validate(password: string): string | null {
   return null;
 }
 
+const input: React.CSSProperties = {
+  width: "100%",
+  padding: "13px 16px",
+  borderRadius: "10px",
+  background: "var(--surface2)",
+  border: "1px solid var(--border)",
+  color: "var(--text)",
+  fontSize: "15px",
+  outline: "none",
+  boxSizing: "border-box",
+};
+
 export default function LoginPage() {
   const supabase = createClient();
   const [mode, setMode] = useState<Mode>("signin");
@@ -76,27 +88,64 @@ export default function LoginPage() {
     setLoading(false);
   }
 
-  const inputCls =
-    "w-full px-[14px] py-[11px] rounded-lg bg-[var(--surface2)] border border-[var(--border)] text-[var(--text)] text-[14px] outline-none box-border";
-
   if (screen === "check_email") {
     return (
-      <div className="min-h-screen bg-[var(--bg)] flex items-center justify-center p-6">
-        <div className="w-full max-w-[380px] text-center">
+      <div
+        style={{
+          minHeight: "100vh",
+          background: "var(--bg)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "24px",
+        }}
+      >
+        <div style={{ width: "100%", maxWidth: "440px", textAlign: "center" }}>
           <Link
             href="/"
-            className="font-[family-name:var(--font-syne)] font-extrabold text-[24px] no-underline text-[var(--text)] block mb-10"
+            style={{
+              fontFamily: "var(--font-syne), sans-serif",
+              fontWeight: 800,
+              fontSize: "26px",
+              textDecoration: "none",
+              color: "var(--text)",
+              display: "block",
+              marginBottom: "36px",
+              letterSpacing: "-0.02em",
+            }}
           >
-            IGCSE <span className="text-[var(--accent)]">Ace</span>
+            IGCSE <span style={{ color: "var(--accent)" }}>Ace</span>
           </Link>
-          <div className="bg-[var(--surface)] border border-[var(--border)] rounded-[16px] px-8 py-10">
-            <div className="text-[40px] mb-4">📬</div>
-            <h1 className="font-[family-name:var(--font-syne)] text-[22px] font-bold mb-2.5">
+          <div
+            style={{
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+              borderRadius: "18px",
+              padding: "44px 44px",
+            }}
+          >
+            <div style={{ fontSize: "44px", marginBottom: "16px" }}>📬</div>
+            <h1
+              style={{
+                fontFamily: "var(--font-syne), sans-serif",
+                fontSize: "22px",
+                fontWeight: 700,
+                marginBottom: "12px",
+                color: "var(--text)",
+              }}
+            >
               Check your email
             </h1>
-            <p className="text-[var(--muted)] text-[14px] leading-[1.7] mb-6">
+            <p
+              style={{
+                color: "var(--muted)",
+                fontSize: "15px",
+                lineHeight: 1.7,
+                marginBottom: "28px",
+              }}
+            >
               We sent a confirmation link to{" "}
-              <strong className="text-[var(--text)]">{email}</strong>.<br />
+              <strong style={{ color: "var(--text)" }}>{email}</strong>.<br />
               Click it to activate your account, then come back to sign in.
             </p>
             <button
@@ -106,7 +155,17 @@ export default function LoginPage() {
                 setPassword("");
                 setError(null);
               }}
-              className="w-full bg-[var(--accent)] border-0 rounded-lg py-[11px] px-6 text-black font-bold text-[14px] cursor-pointer"
+              style={{
+                width: "100%",
+                background: "var(--accent)",
+                border: "none",
+                borderRadius: "10px",
+                padding: "14px 24px",
+                color: "#000",
+                fontWeight: 700,
+                fontSize: "15px",
+                cursor: "pointer",
+              }}
             >
               Back to sign in
             </button>
@@ -117,18 +176,51 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] flex items-center justify-center p-6">
-      <div className="w-full max-w-[380px] text-center">
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "var(--bg)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "24px",
+      }}
+    >
+      <div style={{ width: "100%", maxWidth: "440px", textAlign: "center" }}>
         <Link
           href="/"
-          className="font-[family-name:var(--font-syne)] font-extrabold text-[24px] no-underline text-[var(--text)] block mb-10"
+          style={{
+            fontFamily: "var(--font-syne), sans-serif",
+            fontWeight: 800,
+            fontSize: "26px",
+            textDecoration: "none",
+            color: "var(--text)",
+            display: "block",
+            marginBottom: "36px",
+            letterSpacing: "-0.02em",
+          }}
         >
-          IGCSE <span className="text-[var(--accent)]">Ace</span>
+          IGCSE <span style={{ color: "var(--accent)" }}>Ace</span>
         </Link>
 
-        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-[16px] px-8 py-9">
+        <div
+          style={{
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
+            borderRadius: "18px",
+            padding: "40px 44px",
+          }}
+        >
           {/* Mode toggle */}
-          <div className="flex bg-[var(--surface2)] rounded-[10px] p-[3px] mb-7">
+          <div
+            style={{
+              display: "flex",
+              background: "var(--surface2)",
+              borderRadius: "10px",
+              padding: "4px",
+              marginBottom: "28px",
+            }}
+          >
             {(["signin", "signup"] as Mode[]).map((m) => (
               <button
                 key={m}
@@ -136,25 +228,35 @@ export default function LoginPage() {
                   setMode(m);
                   setError(null);
                 }}
-                className={`flex-1 py-2 rounded-lg border-0 cursor-pointer text-[13px] transition-all duration-150 ${
-                  mode === m
-                    ? "bg-[var(--surface3)] text-[var(--text)] font-semibold"
-                    : "bg-transparent text-[var(--muted)] font-normal"
-                }`}
+                style={{
+                  flex: 1,
+                  padding: "9px 0",
+                  borderRadius: "8px",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                  fontWeight: mode === m ? 600 : 400,
+                  background: mode === m ? "var(--surface3)" : "transparent",
+                  color: mode === m ? "var(--text)" : "var(--muted)",
+                  transition: "all 0.15s ease",
+                }}
               >
                 {m === "signin" ? "Sign in" : "Create account"}
               </button>
             ))}
           </div>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+          <form
+            onSubmit={handleSubmit}
+            style={{ display: "flex", flexDirection: "column", gap: "14px" }}
+          >
             <input
               type="email"
               placeholder="Email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className={inputCls}
+              style={input}
             />
             <input
               type="password"
@@ -162,17 +264,35 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className={inputCls}
+              style={input}
             />
 
             {mode === "signup" && (
-              <p className="text-[11px] text-[var(--muted)] text-left mx-0.5 leading-[1.5]">
+              <p
+                style={{
+                  fontSize: "12px",
+                  color: "var(--muted)",
+                  textAlign: "left",
+                  marginTop: "-4px",
+                  lineHeight: 1.5,
+                }}
+              >
                 Min 8 characters · 1 capital letter · 1 number
               </p>
             )}
 
             {error && (
-              <div className="bg-[rgba(240,96,96,0.1)] border border-[rgba(240,96,96,0.3)] rounded-lg px-[14px] py-[10px] text-[13px] text-[#f06060] text-left">
+              <div
+                style={{
+                  background: "rgba(240,96,96,0.1)",
+                  border: "1px solid rgba(240,96,96,0.3)",
+                  borderRadius: "10px",
+                  padding: "12px 16px",
+                  fontSize: "13px",
+                  color: "#f06060",
+                  textAlign: "left",
+                }}
+              >
                 {error}
               </div>
             )}
@@ -180,25 +300,67 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-[10px] border-0 bg-[var(--accent)] text-black font-bold text-[15px] mt-1 transition-opacity duration-150"
               style={{
+                width: "100%",
+                padding: "14px 0",
+                borderRadius: "10px",
+                border: "none",
+                background: "var(--accent)",
+                color: "#000",
+                fontWeight: 700,
+                fontSize: "15px",
+                marginTop: "4px",
                 cursor: loading ? "not-allowed" : "pointer",
                 opacity: loading ? 0.7 : 1,
+                transition: "opacity 0.15s ease",
               }}
             >
               {loading ? "…" : mode === "signin" ? "Sign in" : "Create account"}
             </button>
           </form>
 
-          <div className="flex items-center gap-3 my-5">
-            <div className="flex-1 h-px bg-[var(--border)]" />
-            <span className="text-[12px] text-[var(--muted)]">or</span>
-            <div className="flex-1 h-px bg-[var(--border)]" />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+              margin: "24px 0",
+            }}
+          >
+            <div
+              style={{ flex: 1, height: "1px", background: "var(--border)" }}
+            />
+            <span style={{ fontSize: "12px", color: "var(--muted)" }}>or</span>
+            <div
+              style={{ flex: 1, height: "1px", background: "var(--border)" }}
+            />
           </div>
 
           <button
             onClick={signInWithGoogle}
-            className="w-full flex items-center justify-center gap-3 px-5 py-[11px] rounded-[10px] bg-[var(--surface2)] border border-[var(--border)] text-[var(--text)] text-[14px] font-semibold cursor-pointer transition-[border-color] duration-150 hover:border-[var(--accent)]"
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "12px",
+              padding: "13px 20px",
+              borderRadius: "10px",
+              background: "var(--surface2)",
+              border: "1px solid var(--border)",
+              color: "var(--text)",
+              fontSize: "15px",
+              fontWeight: 600,
+              cursor: "pointer",
+              transition: "border-color 0.15s ease",
+              boxSizing: "border-box",
+            }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.borderColor = "var(--accent)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.borderColor = "var(--border)")
+            }
           >
             <svg width="18" height="18" viewBox="0 0 18 18">
               <path
@@ -221,7 +383,14 @@ export default function LoginPage() {
             Continue with Google
           </button>
 
-          <p className="text-[var(--muted)] text-[12px] mt-5 leading-[1.6]">
+          <p
+            style={{
+              color: "var(--muted)",
+              fontSize: "12px",
+              marginTop: "24px",
+              lineHeight: 1.6,
+            }}
+          >
             By continuing you agree to our terms of service.
           </p>
         </div>

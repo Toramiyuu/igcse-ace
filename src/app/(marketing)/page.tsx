@@ -71,17 +71,46 @@ export default function LandingPage() {
         .fcard:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.12) !important; }
 
         .ctabtn {
-          background: var(--accent);
-          color: white;
-          transition: background 0.2s ease, transform 0.2s ease;
+          background: linear-gradient(135deg, #7c6af0 0%, #6a5be8 100%);
+          color: #fff;
+          letter-spacing: 0.015em;
+          box-shadow:
+            0 0 0 1px rgba(124,106,240,0.4),
+            0 4px 20px rgba(124,106,240,0.28),
+            inset 0 1px 0 rgba(255,255,255,0.13);
+          transition: transform 0.18s ease, box-shadow 0.18s ease;
         }
-        .ctabtn:hover { background: #6a59d8; transform: translateY(-1px); }
+        .ctabtn:hover {
+          transform: translateY(-2px);
+          box-shadow:
+            0 0 0 1px rgba(124,106,240,0.55),
+            0 8px 32px rgba(124,106,240,0.42),
+            inset 0 1px 0 rgba(255,255,255,0.18);
+        }
+        .ctabtn .arrow { transition: transform 0.18s ease; }
+        .ctabtn:hover .arrow { transform: translateX(3px); }
 
         .stag { transition: border-color 0.15s ease, background 0.15s ease; }
         .stag:hover { border-color: rgba(255,255,255,0.12) !important; background: rgba(255,255,255,0.05) !important; }
 
         .navlink { transition: color 0.15s ease; }
         .navlink:hover { color: white !important; }
+
+        .navbtn {
+          background: #e6e6e6;
+          color: #08090a;
+          display: inline-flex;
+          align-items: center;
+          height: 32px;
+          border-radius: 4px;
+          font-size: 13px;
+          font-weight: 510;
+          padding: 0 12px;
+          text-decoration: none;
+          transition: background 0.15s ease;
+          white-space: nowrap;
+        }
+        .navbtn:hover { background: #d4d4d4; }
 
         @media (max-width: 768px) {
           .hero-heading { font-size: clamp(28px, 7vw, 44px) !important; }
@@ -111,33 +140,58 @@ export default function LandingPage() {
         }}
       >
         <div
-          className="font-bold text-[18px] tracking-tight"
-          style={{ fontFamily: "var(--font-syne), sans-serif" }}
+          style={{
+            fontFamily: "var(--font-syne), sans-serif",
+            fontSize: "18px",
+            fontWeight: 700,
+            letterSpacing: "-0.02em",
+          }}
         >
           IGCSE <span style={{ color: "var(--accent)" }}>Ace</span>
         </div>
-        <div className="hidden md:flex items-center gap-8">
+        <div
+          className="hidden md:flex"
+          style={{ gap: "32px", alignItems: "center" }}
+        >
           <a
             href="#features"
-            className="navlink text-[14px] font-medium no-underline"
-            style={{ color: "rgba(255,255,255,0.55)" }}
+            className="navlink no-underline"
+            style={{
+              color: "rgba(255,255,255,0.55)",
+              fontSize: "15px",
+              fontWeight: 500,
+            }}
           >
             Features
           </a>
           <a
             href="#subjects"
-            className="navlink text-[14px] font-medium no-underline"
-            style={{ color: "rgba(255,255,255,0.55)" }}
+            className="navlink no-underline"
+            style={{
+              color: "rgba(255,255,255,0.55)",
+              fontSize: "15px",
+              fontWeight: 500,
+            }}
           >
             Subjects
           </a>
         </div>
-        <Link
-          href="/login"
-          className="ctabtn flex items-center gap-1.5 font-semibold px-5 py-2.5 rounded-[8px] no-underline text-[14px]"
-        >
-          Sign up free <ArrowRight size={14} />
-        </Link>
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          <Link
+            href="/login"
+            className="navlink no-underline hidden md:block"
+            style={{
+              color: "rgba(255,255,255,0.55)",
+              fontSize: "15px",
+              fontWeight: 500,
+            }}
+          >
+            Log in
+          </Link>
+          <Link href="/login" className="navbtn">
+            Sign up free
+          </Link>
+        </div>
       </nav>
 
       {/* Hero */}
@@ -159,7 +213,10 @@ export default function LandingPage() {
               "radial-gradient(ellipse 70% 60% at 50% 0%, black, transparent)",
           }}
         />
-        <div className="relative z-10 mx-auto" style={{ maxWidth: "800px" }}>
+        <div
+          className="relative z-10"
+          style={{ maxWidth: "800px", margin: "0 auto" }}
+        >
           <div
             data-fade
             className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[11px] font-semibold mb-8 tracking-[0.08em] uppercase"
@@ -200,10 +257,17 @@ export default function LandingPage() {
           <div data-fade data-delay="240">
             <Link
               href="/login"
-              className="ctabtn inline-flex items-center gap-2 font-bold px-8 py-4 rounded-[12px] no-underline text-[16px]"
+              className="ctabtn inline-flex items-center no-underline"
+              style={{
+                gap: "10px",
+                padding: "16px 36px",
+                borderRadius: "999px",
+                fontSize: "17px",
+                fontWeight: 600,
+              }}
             >
               Get started — it&apos;s free
-              <ArrowRight size={16} />
+              <ArrowRight size={16} className="arrow" />
             </Link>
           </div>
         </div>
