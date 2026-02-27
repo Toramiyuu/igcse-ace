@@ -35,13 +35,22 @@ export default async function DashboardPage() {
     : null;
 
   return (
-    <div className="p-10 max-w-[1000px]">
+    <div style={{ padding: "40px 44px", maxWidth: "960px" }}>
       {/* Header */}
-      <div className="mb-9">
-        <h1 className="font-[family-name:var(--font-syne)] text-[28px] font-extrabold mb-1.5">
+      <div style={{ marginBottom: "36px" }}>
+        <h1
+          style={{
+            fontFamily: "var(--font-syne), sans-serif",
+            fontSize: "28px",
+            fontWeight: 800,
+            marginBottom: "6px",
+            color: "var(--text)",
+            letterSpacing: "-0.02em",
+          }}
+        >
           Overview
         </h1>
-        <p className="text-[var(--muted)] text-[14px]">
+        <p style={{ color: "var(--muted)", fontSize: "14px" }}>
           {userSubjects.length} subject{userSubjects.length !== 1 ? "s" : ""} ·
           May/June {profile?.session_year} · Cambridge CAIE
         </p>
@@ -49,17 +58,44 @@ export default async function DashboardPage() {
 
       {/* Countdown stat */}
       {next && daysLeft !== null && (
-        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-[14px] px-6 py-5 mb-8 flex items-center gap-5">
-          <div className="font-[family-name:var(--font-syne)] text-[42px] font-extrabold text-[var(--accent)] leading-none">
+        <div
+          style={{
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
+            borderRadius: "14px",
+            padding: "20px 24px",
+            marginBottom: "32px",
+            display: "flex",
+            alignItems: "center",
+            gap: "20px",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-syne), sans-serif",
+              fontSize: "44px",
+              fontWeight: 800,
+              color: "var(--accent)",
+              lineHeight: 1,
+              flexShrink: 0,
+            }}
+          >
             {daysLeft}
           </div>
           <div>
-            <div className="font-semibold text-[14px] mb-0.5">
+            <div
+              style={{
+                fontWeight: 600,
+                fontSize: "14px",
+                marginBottom: "4px",
+                color: "var(--text)",
+              }}
+            >
               days until{" "}
               {SUBJECT_META[next.subj as SubjectKey]?.name ?? next.subj} —{" "}
               {next.paper}
             </div>
-            <div className="text-[var(--muted)] text-[13px]">
+            <div style={{ color: "var(--muted)", fontSize: "13px" }}>
               {next.date} · {next.session}
             </div>
           </div>
@@ -67,37 +103,91 @@ export default async function DashboardPage() {
       )}
 
       {/* Streak heatmap */}
-      <h2 className="font-[family-name:var(--font-syne)] font-bold text-[var(--muted)] uppercase tracking-[0.06em] text-[11px] mb-3">
+      <div
+        style={{
+          fontSize: "11px",
+          fontWeight: 600,
+          letterSpacing: "0.07em",
+          textTransform: "uppercase",
+          color: "var(--muted)",
+          marginBottom: "12px",
+          fontFamily: "var(--font-syne), sans-serif",
+        }}
+      >
         Study Streak
-      </h2>
+      </div>
       <StreakHeatmap />
 
       {/* Subject cards grid */}
-      <h2 className="font-[family-name:var(--font-syne)] font-bold text-[var(--muted)] uppercase tracking-[0.06em] text-[11px] mb-4">
+      <div
+        style={{
+          fontSize: "11px",
+          fontWeight: 600,
+          letterSpacing: "0.07em",
+          textTransform: "uppercase",
+          color: "var(--muted)",
+          marginBottom: "16px",
+          marginTop: "32px",
+          fontFamily: "var(--font-syne), sans-serif",
+        }}
+      >
         Your Subjects
-      </h2>
+      </div>
       {userSubjects.length === 0 ? (
-        <div className="bg-[var(--surface)] border border-dashed border-[var(--border)] rounded-[14px] px-8 py-10 text-center">
-          <div className="text-[32px] mb-3">📚</div>
-          <div className="font-[family-name:var(--font-syne)] font-bold text-[16px] mb-2">
+        <div
+          style={{
+            background: "var(--surface)",
+            border: "1px dashed var(--border)",
+            borderRadius: "14px",
+            padding: "48px 32px",
+            textAlign: "center",
+          }}
+        >
+          <div style={{ fontSize: "32px", marginBottom: "12px" }}>📚</div>
+          <div
+            style={{
+              fontFamily: "var(--font-syne), sans-serif",
+              fontWeight: 700,
+              fontSize: "16px",
+              marginBottom: "8px",
+              color: "var(--text)",
+            }}
+          >
             No subjects selected
           </div>
-          <p className="text-[var(--muted)] text-[13px] mb-5">
+          <p
+            style={{
+              color: "var(--muted)",
+              fontSize: "13px",
+              marginBottom: "20px",
+              lineHeight: 1.6,
+            }}
+          >
             Choose your subjects to unlock your timetable, flashcards, and exam
             tracker.
           </p>
           <a
             href="/onboarding"
-            className="bg-[var(--accent)] text-black font-bold px-6 py-2.5 rounded-lg text-[14px] no-underline inline-block"
+            style={{
+              background: "var(--accent)",
+              color: "#000",
+              fontWeight: 700,
+              padding: "10px 24px",
+              borderRadius: "8px",
+              fontSize: "14px",
+              textDecoration: "none",
+              display: "inline-block",
+            }}
           >
             Set up subjects →
           </a>
         </div>
       ) : (
         <div
-          className="grid gap-[14px]"
           style={{
-            gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(190px, 1fr))",
+            gap: "14px",
           }}
         >
           {userSubjects.map((key) => {
