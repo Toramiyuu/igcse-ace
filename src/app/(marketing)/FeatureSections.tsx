@@ -467,11 +467,11 @@ export default function FeatureSections() {
               </p>
               <Link
                 href="/login"
-                className="ctabtn inline-flex items-center gap-2 font-bold rounded-[12px] no-underline"
-                style={{ padding: "16px 32px", fontSize: "17px" }}
+                className="ctabtn inline-flex items-center gap-2.5 font-semibold rounded-full no-underline"
+                style={{ padding: "15px 36px", fontSize: "15px" }}
               >
                 Sign up free — no credit card needed
-                <ArrowRight size={18} />
+                <ArrowRight size={14} className="arrow" />
               </Link>
             </div>
           </div>

@@ -30,7 +30,8 @@ export default function AppMockup() {
     <section
       data-fade
       data-delay="300"
-      className="relative px-6 py-16 max-w-[900px] mx-auto"
+      className="relative"
+      style={{ padding: "64px 24px", maxWidth: "900px", margin: "0 auto" }}
     >
       {/* Glow */}
       <div
