@@ -22,13 +22,27 @@ export default function TrackerClient({ events }: { events: TrackerEvent[] }) {
 
   return (
     <>
-      <div className="flex flex-col gap-[10px] max-w-[640px]">
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+          maxWidth: "680px",
+        }}
+      >
         {events.map((e, i) => (
           <button
             key={i}
             onClick={() => !e.past && setSelected(e)}
-            className="bg-[var(--surface)] rounded-[10px] px-[18px] py-[14px] flex justify-between items-center w-full text-left border-0"
             style={{
+              background: "var(--surface)",
+              borderRadius: "10px",
+              padding: "16px 20px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "100%",
+              textAlign: "left",
               border: `1px solid ${e.past ? "var(--border)" : `${e.color}30`}`,
               borderLeft: `3px solid ${e.past ? "var(--border)" : e.color}`,
               opacity: e.past ? 0.45 : 1,
@@ -36,23 +50,47 @@ export default function TrackerClient({ events }: { events: TrackerEvent[] }) {
             }}
           >
             <div>
-              <div className="font-semibold text-[14px] mb-[3px]">
+              <div
+                style={{
+                  fontWeight: 600,
+                  fontSize: "15px",
+                  marginBottom: "4px",
+                  color: "var(--text)",
+                }}
+              >
                 {e.name} — {e.paper}
               </div>
-              <div className="text-[var(--muted)] text-[12px]">
+              <div style={{ color: "var(--muted)", fontSize: "13px" }}>
                 {e.date} · {e.session} · {e.duration}
-                {e.code && <span className="ml-2 opacity-60">{e.code}</span>}
+                {e.code && (
+                  <span style={{ marginLeft: "8px", opacity: 0.6 }}>
+                    {e.code}
+                  </span>
+                )}
               </div>
             </div>
             {!e.past ? (
               <div
-                className="font-[family-name:var(--font-syne)] font-extrabold text-[20px] min-w-[48px] text-right shrink-0"
-                style={{ color: e.color }}
+                style={{
+                  fontFamily: "var(--font-syne), sans-serif",
+                  fontWeight: 800,
+                  fontSize: "22px",
+                  minWidth: "52px",
+                  textAlign: "right",
+                  flexShrink: 0,
+                  color: e.color,
+                }}
               >
                 {e.days}d
               </div>
             ) : (
-              <div className="text-[11px] text-[var(--muted)] shrink-0">
+              <div
+                style={{
+                  fontSize: "11px",
+                  color: "var(--muted)",
+                  flexShrink: 0,
+                }}
+              >
                 Done
               </div>
             )}

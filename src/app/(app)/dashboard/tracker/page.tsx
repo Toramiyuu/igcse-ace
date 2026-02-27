@@ -43,12 +43,21 @@ export default async function TrackerPage() {
     .sort((a, b) => new Date(a.iso).getTime() - new Date(b.iso).getTime());
 
   return (
-    <div className="p-10 max-w-[900px]">
-      <div className="mb-8">
-        <h1 className="font-[family-name:var(--font-syne)] text-[28px] font-extrabold mb-1.5">
+    <div style={{ padding: "48px 52px", maxWidth: "1040px" }}>
+      <div style={{ marginBottom: "40px" }}>
+        <h1
+          style={{
+            fontFamily: "var(--font-syne), sans-serif",
+            fontSize: "30px",
+            fontWeight: 800,
+            marginBottom: "8px",
+            color: "var(--text)",
+            letterSpacing: "-0.02em",
+          }}
+        >
           Exam Tracker
         </h1>
-        <p className="text-[var(--muted)] text-[14px]">
+        <p style={{ color: "var(--muted)", fontSize: "15px" }}>
           {events.filter((e) => !e.past).length} exams remaining
           {profile?.zone
             ? ` · ${ZONE_INFO[zoneKeyFromNumber(profile.zone)].label} — ${ZONE_INFO[zoneKeyFromNumber(profile.zone)].region}`
