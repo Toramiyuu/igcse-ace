@@ -158,115 +158,111 @@ export default function OnboardingPage() {
           })}
         </div>
 
-        {/* Year + Zone row */}
-        <div
-          style={{
-            display: "flex",
-            gap: "24px",
-            marginBottom: "32px",
-            flexWrap: "wrap",
-          }}
-        >
-          {/* Session year */}
-          <div>
-            <label
-              style={{
-                fontSize: "13px",
-                color: "var(--muted)",
-                display: "block",
-                marginBottom: "8px",
-              }}
-            >
-              Session year
-            </label>
-            <select
-              value={year}
-              onChange={(e) => setYear(+e.target.value)}
-              style={{
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                color: "var(--text)",
-                padding: "9px 14px",
-                borderRadius: "8px",
-                fontSize: "14px",
-                cursor: "pointer",
-                outline: "none",
-              }}
-            >
-              <option value={2026}>May/June 2026</option>
-              <option value={2027}>May/June 2027</option>
-            </select>
-          </div>
+        {/* Session year */}
+        <div style={{ marginBottom: "28px" }}>
+          <label
+            style={{
+              fontSize: "13px",
+              color: "var(--muted)",
+              display: "block",
+              marginBottom: "8px",
+            }}
+          >
+            Session year
+          </label>
+          <select
+            value={year}
+            onChange={(e) => setYear(+e.target.value)}
+            style={{
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+              color: "var(--text)",
+              padding: "9px 14px",
+              borderRadius: "8px",
+              fontSize: "14px",
+              cursor: "pointer",
+              outline: "none",
+            }}
+          >
+            <option value={2026}>May/June 2026</option>
+            <option value={2027}>May/June 2027</option>
+          </select>
+        </div>
 
-          {/* Cambridge zone */}
-          <div style={{ flex: 1, minWidth: "280px" }}>
-            <label
-              style={{
-                fontSize: "13px",
-                color: "var(--muted)",
-                display: "block",
-                marginBottom: "8px",
-              }}
-            >
-              Cambridge zone
-            </label>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-              {(["Z1", "Z2", "Z3", "Z4", "Z5"] as ZoneKey[]).map((zk, i) => {
-                const zNum = i + 1;
-                const info = ZONE_INFO[zk];
-                const active = zone === zNum;
-                return (
-                  <button
-                    key={zk}
-                    type="button"
-                    onClick={() => setZone(zNum)}
+        {/* Cambridge zone */}
+        <div style={{ marginBottom: "32px" }}>
+          <label
+            style={{
+              fontSize: "13px",
+              color: "var(--muted)",
+              display: "block",
+              marginBottom: "8px",
+            }}
+          >
+            Cambridge zone
+          </label>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(5, 1fr)",
+              gap: "8px",
+            }}
+          >
+            {(["Z1", "Z2", "Z3", "Z4", "Z5"] as ZoneKey[]).map((zk, i) => {
+              const zNum = i + 1;
+              const info = ZONE_INFO[zk];
+              const active = zone === zNum;
+              return (
+                <button
+                  key={zk}
+                  type="button"
+                  onClick={() => setZone(zNum)}
+                  style={{
+                    borderRadius: "10px",
+                    padding: "10px 12px",
+                    textAlign: "left",
+                    border: `1px solid ${active ? "var(--accent)" : "var(--border)"}`,
+                    background: active
+                      ? "color-mix(in srgb, var(--accent) 12%, transparent)"
+                      : "var(--surface)",
+                    cursor: "pointer",
+                    transition:
+                      "border-color 0.15s ease, background 0.15s ease",
+                  }}
+                >
+                  <div
                     style={{
-                      borderRadius: "10px",
-                      padding: "10px 14px",
-                      textAlign: "left",
-                      border: `1px solid ${active ? "var(--accent)" : "var(--border)"}`,
-                      background: active
-                        ? "color-mix(in srgb, var(--accent) 12%, transparent)"
-                        : "var(--surface)",
-                      cursor: "pointer",
-                      transition:
-                        "border-color 0.15s ease, background 0.15s ease",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      color: "var(--accent)",
+                      marginBottom: "3px",
                     }}
                   >
-                    <div
-                      style={{
-                        fontSize: "12px",
-                        fontWeight: 700,
-                        color: "var(--accent)",
-                        marginBottom: "2px",
-                      }}
-                    >
-                      {info.label}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "11px",
-                        color: "var(--text)",
-                        fontWeight: 600,
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      {info.region}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: "10px",
-                        color: "var(--muted)",
-                        lineHeight: 1.4,
-                        marginTop: "2px",
-                      }}
-                    >
-                      {info.countries}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
+                    {info.label}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "11px",
+                      color: "var(--text)",
+                      fontWeight: 600,
+                      lineHeight: 1.3,
+                      marginBottom: "3px",
+                    }}
+                  >
+                    {info.region}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "10px",
+                      color: "var(--muted)",
+                      lineHeight: 1.4,
+                    }}
+                  >
+                    {info.countries}
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
 
